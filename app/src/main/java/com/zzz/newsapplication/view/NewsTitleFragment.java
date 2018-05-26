@@ -113,7 +113,6 @@ public class NewsTitleFragment extends Fragment implements PaperView{
 
                     NewsLink news = baozhi_list.get(position);
                     if(isTwoPane){
-
                         NewsContentFragment newsContentFragment = (NewsContentFragment) getFragmentManager().findFragmentById(R.id.news_content_fragment);
                         newsContentFragment.refresh(news.getTitle(),news.getNewsLink(),position,news.getColorisblack());
 

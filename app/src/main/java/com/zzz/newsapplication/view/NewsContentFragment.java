@@ -58,7 +58,6 @@ public class NewsContentFragment extends Fragment implements ImageView {
         view = inflater.inflate(R.layout.news_content_frag, container, false);
         setHasOptionsMenu(true);
 
-        findViewById();
 //        initView();
 //        initData();
         return view;
@@ -73,8 +72,6 @@ public class NewsContentFragment extends Fragment implements ImageView {
             adapter.setItemClickListener(new OnRecyclerItemClickListener() {
                 @Override
                 public void click(View item, int position) {
-
-
 //                    Mango.setImages(images);
 //                    Mango.setPosition(position);
 //                    Mango.setImageSelectListener(new ImageSelectListener() {
@@ -110,32 +107,11 @@ public class NewsContentFragment extends Fragment implements ImageView {
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void refresh(String newsTitle, String newsLink, int position,boolean complete) {
         this.newsTitle = newsTitle;
         this.newsLink = newsLink;
         this.complete = complete;
+        findViewById();
         initView();
         initData();
 
@@ -153,6 +129,7 @@ public class NewsContentFragment extends Fragment implements ImageView {
             public void onFailure(Call call, IOException e) {
                 Log.i("errorOnNewsContent", e.toString());
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 byte[] responseByte = response.body().bytes();
@@ -164,7 +141,7 @@ public class NewsContentFragment extends Fragment implements ImageView {
                         html1 = this.html;
                         String htmllink;
                         htmllink = this.htmllink;
-//                        Log.i("html1",html1);
+
                         Bundle bundle = new Bundle();
                         bundle.putString("html", html1);
                         bundle.putString("htmllink",htmllink);
@@ -175,13 +152,9 @@ public class NewsContentFragment extends Fragment implements ImageView {
                 }).start();
             }
         });
-//                    htmlStr = DataUtil.doGet(this.html);
     }
 
 
-
-
-//    sendValueToServer runnable =
 Handler handler2 = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg){
@@ -202,8 +175,7 @@ Handler handler2 = new Handler(new Handler.Callback() {
                 Log.i("warmming","abc"+imgsrc);
 
                 images.add(new MultiplexImage(imgsrc,imgsrc,MultiplexImage.ImageType.NORMAL));
-//
-//                Log.i("warmming","abc"+imgsrc);
+
                 adapter.notifyDataSetChanged();
             }
             return false;
@@ -218,8 +190,6 @@ Handler handler2 = new Handler(new Handler.Callback() {
         public boolean handleMessage(Message msg){
             Bundle bundle = msg.getData();
 
-//            if(bundle.get("html").toString() == null)Log.i("cao","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
             if(!TextUtils.isEmpty(bundle.get("html").toString())){
                 String html = bundle.get("html").toString();
                 Document doc = Jsoup.parse(html);
@@ -230,17 +200,14 @@ Handler handler2 = new Handler(new Handler.Callback() {
                     startActivity(intent);
                 }else {
                     String htmllink = bundle.get("htmllink").toString();
-
                     String htmlhead = htmllink.substring(0,htmllink.length()-5);
                     String htmlfoot = htmllink.substring(htmllink.length()-5,htmllink.length());
 
                     for(j = 1 ; j <= num ; j ++){
-                        Log.i("asd","asda");
                         String link;
                         if(j == 1)link = htmlhead + htmlfoot;
                         else link = htmlhead+'_'+j+htmlfoot;
                         Log.i("htmllink",link);
-//                Log.i("html", String.valueOf(j)+" "+htmlLink+"&pageno="+j);
                         DataUtil.sendOkHttpRequest(link, new okhttp3.Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {

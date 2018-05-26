@@ -4,9 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/news_content_fragment"
-        android:name="com.zzz.newsapplication.view.NewsContentFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/content_main"/>
 </LinearLayout>

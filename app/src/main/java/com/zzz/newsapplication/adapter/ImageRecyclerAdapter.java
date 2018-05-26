@@ -43,7 +43,10 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
 
     @Override
     public void onBindViewHolder(ImageHolder holder, int position) {
-        Glide.with(context).load(dataList.get(position).getTPath()).thumbnail(1f).into(holder.image);
+        Glide.with(context)
+                .load(dataList.get(position).getTPath())
+                .thumbnail(1f)
+                .into(holder.image);
     }
 
     public void setItemClickListener(OnRecyclerItemClickListener itemClickListener) {
