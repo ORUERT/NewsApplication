@@ -12,6 +12,7 @@ import java.util.List;
 public interface PaperView {
     void setPaper(List<NewsLink> paper);
 
-
-    void initRecycler();
+    void findViewById();
+    void initData();
+    void initView();
 }

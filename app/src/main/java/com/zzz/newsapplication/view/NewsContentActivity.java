@@ -10,12 +10,12 @@ import com.zzz.newsapplication.R;
 import static com.jelly.mango.Mango.position;
 
 public class NewsContentActivity extends AppCompatActivity {
-    public static void actionStart(Context context , String newsTitle , String newsLink,int newPos){
+    public static void actionStart(Context context , String newsTitle , String newsLink,int newPos,boolean complete){
         Intent intent = new Intent(context , NewsContentActivity.class);
         intent.putExtra("news_title",newsTitle);
         intent.putExtra("news_link",newsLink);
-
         intent.putExtra("news_position",newPos);
+        intent.putExtra("news_complete",complete);
         context.startActivity(intent);
     }
     @Override
@@ -26,10 +26,12 @@ public class NewsContentActivity extends AppCompatActivity {
 
         String newsLink = getIntent().getStringExtra("news_link");
 
-
         int newsPos = getIntent().getIntExtra("news_position",0);
 
+        boolean complete = getIntent().getBooleanExtra("news_complete",false);
+
         NewsContentFragment newsContentFragment = (NewsContentFragment)getSupportFragmentManager().findFragmentById(R.id.news_content_fragment);
+
         newsContentFragment.refresh(newsTitle , newsLink, newsPos);
     }
 }

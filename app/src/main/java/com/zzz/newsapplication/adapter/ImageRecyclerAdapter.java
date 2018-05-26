@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.zzz.newsapplication.R;
-import com.zzz.newsapplication.adapter.OnRecyclerItemClickListener;
 //import com.jelly.imagebrowse.R;
+import com.zzz.newsapplication.R;
 import com.jelly.mango.MultiplexImage;
 
 import java.util.List;

@@ -2,7 +2,6 @@ package com.zzz.newsapplication.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -13,12 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zzz.newsapplication.R;
 import com.zzz.newsapplication.adapter.NewsListAdapter;
 import com.zzz.newsapplication.adapter.OnRecyclerItemClickListener;
-import com.zzz.newsapplication.bean.CommonException;
 import com.zzz.newsapplication.bean.NewsLink;
 //import com.example.newsapplication.presenter.Paperpresenter;
 import com.zzz.newsapplication.site.DataUtil;
@@ -56,8 +53,27 @@ public class NewsTitleFragment extends Fragment implements PaperView{
     public View onCreateView(LayoutInflater inflater , ViewGroup container, Bundle saveInstanceState){
 
         view = inflater.inflate(R.layout.news_title_frag,container,false);
+        findViewById();
         initView();
-        initRecycler();
+
+        if(baozhi_list.size() == 0)initData();
+
+        return view;
+    }
+
+
+    @Override
+    public void setPaper(List<NewsLink> paper){
+        this.baozhi_list = paper;
+    }
+
+    @Override
+    public void findViewById() {
+        ry = (RecyclerView) view.findViewById(R.id.news_title_recycler_view);
+    }
+
+    @Override
+    public void initData() {
         DataUtil.sendOkHttpRequest(NEWS_BASE_URL,new okhttp3.Callback(){
             @Override
             public void onFailure(Call call, IOException e) {
@@ -82,81 +98,70 @@ public class NewsTitleFragment extends Fragment implements PaperView{
                 }).start();
             }
         });
-
-        initRecycler();
-        return view;
     }
 
-    @Override
-    public void setPaper(List<NewsLink> paper){
-        this.baozhi_list = paper;
-    }
     public void initView(){
-        ry = (RecyclerView) view.findViewById(R.id.news_title_recycler_view);
-
-    }
-
-    public void initRecycler(){
         if(adapter == null){
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             ry.setLayoutManager(layoutManager);
+
             adapter = new NewsListAdapter(this.baozhi_list);
+
             adapter.setItemClickListener(new OnRecyclerItemClickListener() {
                 @Override
                 public void click(View item, int position) {
 
                     NewsLink news = baozhi_list.get(position);
                     if(isTwoPane){
+
                         NewsContentFragment newsContentFragment = (NewsContentFragment) getFragmentManager().findFragmentById(R.id.news_content_fragment);
-                        newsContentFragment.refresh(news.getTitle(),news.getNewsLink(),position);
+                        newsContentFragment.refresh(news.getTitle(),news.getNewsLink(),position,news.getColorisblack());
+
                     }else{
-                        NewsContentActivity.actionStart(getActivity(),news.getTitle(),news.getNewsLink(),position);
+                        NewsContentActivity.actionStart(getActivity(),news.getTitle(),news.getNewsLink(),position,news.getColorisblack());
                     }
                 }
             });
             ry.setAdapter(adapter);
         }
-
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(getActivity().findViewById(R.id.news_content_layout) != null){
-            isTwoPane = true;
-        }else {
-            isTwoPane = false;
-        }
+        isTwoPane = getActivity().findViewById(R.id.news_content_layout) != null;
     }
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler(){
+
+    Handler handler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg){
             Bundle bundle = msg.getData();
             html = bundle.get("html").toString();
 
             Document doc = Jsoup.parse(html);
             Elements html_list = doc.getElementsByClass("item-baozhi");
-            Log.i("html_list.size()", String.valueOf(html_list));
+
             for(int i = 0 ; i < html_list.size() ; i ++){
                 NewsLink newslink = new NewsLink();
                 String pagelink = NEWS_BASE_URL+html_list.get(i).attr("href");//?
-                String pagecolor = html_list.get(i).getElementsByTag("span").attr("class").toString();
+                String pagecolor = html_list.get(i).getElementsByTag("span").attr("class");
                 String pagetitle = html_list.get(i).getElementsByTag("span").text();
-//                Log.i("color",pagecolor);
+
                 Log.i("hello",pagelink+"  "+pagetitle);
+
                 newslink.setNewsLink(pagelink);
                 newslink.setTitle(pagetitle);
-                if(pagecolor.indexOf("Red") != -1){
+                if(pagecolor.contains("Red")){
                     newslink.setColorisblack(false);
-                }else if(pagecolor.indexOf("Gray") != -1){
+                }else if(pagecolor.contains("Gray")){
                     newslink.setColorisblack(true);
                 }
                 baozhi_list.add(newslink);
                 adapter.notifyDataSetChanged();
             }
+            return false;
         }
-    };
+    });
 
 
 }

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,17 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zzz.newsapplication.R;
 import com.zzz.newsapplication.adapter.ImageRecyclerAdapter;
 import com.zzz.newsapplication.adapter.OnRecyclerItemClickListener;
 import com.zzz.newsapplication.bean.CommonException;
-import com.zzz.newsapplication.bean.News;
 //import com.example.newsapplication.presenter.Imagepresenter;
 import com.zzz.newsapplication.site.DataUtil;
-import com.jelly.mango.ImageSelectListener;
-import com.jelly.mango.Mango;
 import com.jelly.mango.MultiplexImage;
 
 import org.jsoup.Jsoup;
@@ -39,7 +34,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -52,41 +46,26 @@ public class NewsContentFragment extends Fragment implements ImageView {
     private View view;
     private RecyclerView rv;
 
-    private List<MultiplexImage> images;
+    private List<MultiplexImage> images =new ArrayList<MultiplexImage>();
     private ImageRecyclerAdapter adapter;
     //    private Imagepresenter presenter;
     private String newsLink;
     private String newsTitle;
+    private boolean complete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         view = inflater.inflate(R.layout.news_content_frag, container, false);
-//        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setHasOptionsMenu(true);
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-
+        findViewById();
+//        initView();
+//        initData();
         return view;
     }
 
 
     public void initView() {
-        rv = (RecyclerView) view.findViewById(R.id.recyclerView);
-    }
-
-//    public void initPresenter(){
-//        presenter = new Imagepresenter(this);
-//    }
-
-    @Override
-    public void setImages(List<MultiplexImage> images) {
-        this.images = images;
-    }
-
-    @Override
-    public void initRecycler() {
-        if (images == null) images = new ArrayList<MultiplexImage>();
-
         if (adapter == null) {
             rv.setLayoutManager(new GridLayoutManager(((AppCompatActivity) getActivity()), 3));
             rv.setItemAnimator(new DefaultItemAnimator());
@@ -96,24 +75,40 @@ public class NewsContentFragment extends Fragment implements ImageView {
                 public void click(View item, int position) {
 
 
-                    Mango.setImages(images);
-                    Mango.setPosition(position);
-                    Mango.setImageSelectListener(new ImageSelectListener() {
-                        @Override
-                        public void select(int index) {
-                            Log.d("Mango", "select: " + index);
-                        }
-                    });
-                    try {
-                        Mango.open(((AppCompatActivity) getActivity()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    Mango.setImages(images);
+//                    Mango.setPosition(position);
+//                    Mango.setImageSelectListener(new ImageSelectListener() {
+//                        @Override
+//                        public void select(int index) {
+//                            Log.d("Mango", "select: " + index);
+//                        }
+//                    });
+//                    try {
+//                        Mango.open(((AppCompatActivity) getActivity()));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                 }
             });
             rv.setAdapter(adapter);
         }
     }
+
+    @Override
+    public void setImages(List<MultiplexImage> images) {
+        this.images = images;
+    }
+
+    @Override
+    public void findViewById() {
+        rv = (RecyclerView) view.findViewById(R.id.recyclerView);
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -137,12 +132,13 @@ public class NewsContentFragment extends Fragment implements ImageView {
         return super.onOptionsItemSelected(item);
     }
 
-    public void refresh(String newsTitle, String newsLink, int position) {
+    public void refresh(String newsTitle, String newsLink, int position,boolean complete) {
         this.newsTitle = newsTitle;
         this.newsLink = newsLink;
-//        Log.i("hello" , newsTitle+"============>"+newsLink);
+        this.complete = complete;
         initView();
-        initRecycler();
+        initData();
+
         try {
             getNewsItems(this.newsLink);
         } catch (CommonException e) {
@@ -157,7 +153,6 @@ public class NewsContentFragment extends Fragment implements ImageView {
             public void onFailure(Call call, IOException e) {
                 Log.i("errorOnNewsContent", e.toString());
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 byte[] responseByte = response.body().bytes();
@@ -187,20 +182,16 @@ public class NewsContentFragment extends Fragment implements ImageView {
 
 
 //    sendValueToServer runnable =
-@SuppressLint("HandlerLeak")
-Handler handler2 = new Handler(){
+Handler handler2 = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg){
             String html = null;
             Bundle bundle = msg.getData();
             int index = (int) bundle.get("index");
-            Log.i("index", String.valueOf(index));
+//            Log.i("index", String.valueOf(index));
             html = bundle.get("html").toString();
 
-
-
-            if(!html.equals("")){
+            if(TextUtils.isEmpty(html)){
 
                 Document doc = Jsoup.parse(html);
                 Elements image_doc = doc.getElementsByTag("img");
@@ -210,22 +201,21 @@ Handler handler2 = new Handler(){
 
                 Log.i("warmming","abc"+imgsrc);
 
-//                images.add(index,new MultiplexImage(imgsrc,imgsrc,MultiplexImage.ImageType.NORMAL));
                 images.add(new MultiplexImage(imgsrc,imgsrc,MultiplexImage.ImageType.NORMAL));
 //
 //                Log.i("warmming","abc"+imgsrc);
                 adapter.notifyDataSetChanged();
             }
+            return false;
         }
-    };
+    });
 
 
     @SuppressLint("HandlerLeak")
-    Handler handler1 = new Handler(){
+    Handler handler1 = new Handler(new Handler.Callback() {
         int j;
         @Override
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg){
             Bundle bundle = msg.getData();
 
 //            if(bundle.get("html").toString() == null)Log.i("cao","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -282,8 +272,9 @@ Handler handler2 = new Handler(){
 
             }
 
+            return false;
         }
-    };
+    });
 
     @Override
     public void onDestroy() {

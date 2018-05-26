@@ -11,5 +11,7 @@ import java.util.List;
 public interface ImageView {
     void setImages(List<MultiplexImage> images);
 
-    void initRecycler();
+    void findViewById();
+    void initData();
+    void initView();
 }
