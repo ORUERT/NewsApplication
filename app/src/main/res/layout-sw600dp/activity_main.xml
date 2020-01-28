@@ -19,7 +19,7 @@
 
         <fragment
             android:id="@+id/news_content_fragment"
-            android:name="com.zzz.newsapplication.view.NewsContentFragment"
+            android:name="com.zzz.newsapplication.View.NewsContentFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

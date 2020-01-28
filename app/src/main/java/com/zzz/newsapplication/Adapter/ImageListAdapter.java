@@ -1,4 +1,4 @@
-package com.zzz.newsapplication.adapter;
+package com.zzz.newsapplication.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

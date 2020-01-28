@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.zzz.newsapplication.Utils.DataUtil;
-import com.zzz.newsapplication.bean.NewsLink;
+import com.zzz.newsapplication.Bean.NewsLink;
 import com.zzz.newsapplication.Utils.NewsInterface;
 
 import org.jsoup.Jsoup;

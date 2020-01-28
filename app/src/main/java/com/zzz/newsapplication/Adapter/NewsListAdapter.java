@@ -1,7 +1,6 @@
-package com.zzz.newsapplication.adapter;
+package com.zzz.newsapplication.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zzz.newsapplication.R;
-import com.zzz.newsapplication.bean.NewsLink;
+import com.zzz.newsapplication.Bean.NewsLink;
 
 import java.util.List;
 

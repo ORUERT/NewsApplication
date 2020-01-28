@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.jelly.mango.MultiplexImage;
 import com.zzz.newsapplication.R;
-import com.zzz.newsapplication.adapter.ImageListAdapter;
+import com.zzz.newsapplication.Adapter.ImageListAdapter;
 import com.zzz.newsapplication.Utils.ActivityUtils;
 
 import java.util.ArrayList;

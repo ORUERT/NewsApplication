@@ -1,6 +1,6 @@
-package com.zzz.newsapplication.adapter;
+package com.zzz.newsapplication.Adapter;
 
-import com.zzz.newsapplication.bean.NewsLink;
+import com.zzz.newsapplication.Bean.NewsLink;
 
 /**
  * Created by Jelly on 2016/9/3.

@@ -14,10 +14,10 @@ import com.jelly.mango.ImageSelectListener;
 import com.jelly.mango.Mango;
 import com.jelly.mango.MultiplexImage;
 import com.zzz.newsapplication.R;
-import com.zzz.newsapplication.adapter.ClickListener;
-import com.zzz.newsapplication.adapter.ImageListAdapter;
+import com.zzz.newsapplication.Adapter.ClickListener;
+import com.zzz.newsapplication.Adapter.ImageListAdapter;
 import com.zzz.newsapplication.Utils.NewsInterface;
-import com.zzz.newsapplication.view.PaperView;
+//import com.zzz.newsapplication.view.PaperView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public class NewsImageFragment extends Fragment implements PaperView {
+public class NewsImageFragment extends Fragment{
 
     private View view;
     private RecyclerView mRv;
@@ -77,7 +77,6 @@ public class NewsImageFragment extends Fragment implements PaperView {
 
     }
 
-    @Override
     public void findViewById() {
         mRv = (RecyclerView) view.findViewById(R.id.news_content_recycler_view);
     }
@@ -113,7 +112,6 @@ public class NewsImageFragment extends Fragment implements PaperView {
     };
 
 
-    @Override
     public void initData() {
         mImgPresenter.loadImages(networkCallback);
     }
@@ -138,7 +136,6 @@ public class NewsImageFragment extends Fragment implements PaperView {
             }
         }
     };
-    @Override
     public void initView() {
         if (mAdapter == null) {
             mRv.setLayoutManager(new GridLayoutManager(getActivity(), 3));

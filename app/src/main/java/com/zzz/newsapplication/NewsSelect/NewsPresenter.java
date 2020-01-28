@@ -3,7 +3,7 @@ package com.zzz.newsapplication.NewsSelect;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.zzz.newsapplication.bean.NewsLink;
+import com.zzz.newsapplication.Bean.NewsLink;
 import com.zzz.newsapplication.Utils.NewsInterface;
 
 import java.util.List;

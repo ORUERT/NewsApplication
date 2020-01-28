@@ -1,4 +1,4 @@
-package com.zzz.newsapplication.bean;
+package com.zzz.newsapplication.Bean;
 
 /**
  * Created by oruret on 2018/1/31.

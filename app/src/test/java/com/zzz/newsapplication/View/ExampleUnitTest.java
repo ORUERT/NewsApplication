@@ -1,4 +1,4 @@
-package com.zzz.newsapplication.view;
+package com.zzz.newsapplication.View;
 
 import org.junit.Test;
 

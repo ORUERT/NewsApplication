@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 
 import com.zzz.newsapplication.NewsImageSelect.NewsImageActivity;
 import com.zzz.newsapplication.R;
-import com.zzz.newsapplication.adapter.ClickListener;
-import com.zzz.newsapplication.adapter.NewsListAdapter;
-import com.zzz.newsapplication.bean.NewsLink;
-import com.zzz.newsapplication.view.PaperView;
+import com.zzz.newsapplication.Adapter.ClickListener;
+import com.zzz.newsapplication.Adapter.NewsListAdapter;
+import com.zzz.newsapplication.Bean.NewsLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by oruret on 2018/1/30.
  */
 
-public class NewsFragment extends Fragment implements PaperView {
+public class NewsFragment extends Fragment {
 
     private boolean isTwoPane;
     public static final String NEWS_BASE_URL = "http://www.hqck.net/";
@@ -71,11 +70,9 @@ public class NewsFragment extends Fragment implements PaperView {
     }
     public static NewsFragment newInstance(){return new NewsFragment();}
 
-    @Override
     public void initData(){
         mPresenter.loadNews();
     }
-    @Override
     public void findViewById() {
         ry = (RecyclerView) view.findViewById(R.id.news_title_recycler_view);
     }
