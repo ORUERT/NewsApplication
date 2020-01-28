@@ -1,0 +1,151 @@
+package com.zzz.newsapplication.NewsImageSelect;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jelly.mango.ImageSelectListener;
+import com.jelly.mango.Mango;
+import com.jelly.mango.MultiplexImage;
+import com.zzz.newsapplication.R;
+import com.zzz.newsapplication.adapter.ClickListener;
+import com.zzz.newsapplication.adapter.ImageListAdapter;
+import com.zzz.newsapplication.Utils.NewsInterface;
+import com.zzz.newsapplication.view.PaperView;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+
+public class NewsImageFragment extends Fragment implements PaperView {
+
+    private View view;
+    private RecyclerView mRv;
+
+    private List<MultiplexImage> mImageList = new ArrayList<MultiplexImage>();
+    private ImageListAdapter mAdapter;
+
+    private NewsImgPresenter mImgPresenter;
+    private ConcurrentHashMap<Integer,MultiplexImage> ordImageList = new ConcurrentHashMap<>();
+
+    private int mPosition = 0;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater , ViewGroup container, Bundle saveInstanceState) {
+        view = inflater.inflate(R.layout.news_detail_frag, container, false);
+
+//        Log.e("pagelink",newsLink);
+
+            findViewById();
+            initView();
+            initData();
+
+            return view;
+        }
+    @Override
+    public void onDestroy () {
+        super.onDestroy();
+        mImageList.clear();
+        ordImageList.clear();
+    }
+
+    public void setPresenter (NewsImgPresenter newsImgPresenter){
+        mImgPresenter = newsImgPresenter;
+    }
+
+    public static NewsImageFragment newsInstance (){
+        return new NewsImageFragment();
+    }
+
+    public void showImageList (List < MultiplexImage > imageList) {
+        mAdapter.replaceData(imageList);
+    }
+
+
+    public void refresh (String newsTitle, String newsLink,int position, boolean complete){
+
+    }
+
+    @Override
+    public void findViewById() {
+        mRv = (RecyclerView) view.findViewById(R.id.news_content_recycler_view);
+    }
+    NewsInterface.NetworkWithPosCallback networkCallback = new NewsInterface.NetworkWithPosCallback() {
+        @Override
+        public void onGetSuccess(int position,String resHtml) {
+            Document doc = Jsoup.parse(resHtml);
+            //获取报纸图片信息
+            Elements image_doc = doc.getElementsByTag("img");
+            String imgsrc = image_doc.get(0).attr("src");
+
+            Elements title_doc = doc.getElementsByTag("meta");
+            String title = title_doc.get(0).attr("content");
+
+            Log.i("warmming","abc"+imgsrc);
+
+            ordImageList.put(position,new MultiplexImage(imgsrc,imgsrc,MultiplexImage.ImageType.NORMAL));
+
+            final List<MultiplexImage> imageList = new ArrayList<>();
+            imageList.addAll(ordImageList.values());
+            mImageList = imageList;
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mImgPresenter.replaceImage(imageList);
+                }
+            });
+        }
+        @Override
+        public void onGetFail(Exception ex) {
+
+        }
+    };
+
+
+    @Override
+    public void initData() {
+        mImgPresenter.loadImages(networkCallback);
+    }
+    ClickListener.OnImageItemClickListener onRecyclerItemClickListener = new ClickListener.OnImageItemClickListener() {
+        @Override
+        public void click(int position) {
+            //test Mange static
+//            Log.e(position,mImageList)
+            Mango.setImages(mImageList);
+
+            Mango.setPosition(position);
+            Mango.setImageSelectListener(new ImageSelectListener() {
+                @Override
+                public void select(int index) {
+                    Log.d("Mango", "select: " + index);
+                }
+            });
+            try {
+                Mango.open(getContext());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+    @Override
+    public void initView() {
+        if (mAdapter == null) {
+            mRv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            mRv.setItemAnimator(new DefaultItemAnimator());
+            mAdapter = new ImageListAdapter(getContext(), mImageList);
+            mAdapter.setItemClickListener(onRecyclerItemClickListener);
+            mRv.setAdapter(mAdapter);
+        }
+    }
+}
