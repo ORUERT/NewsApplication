@@ -1,7 +1,7 @@
 package com.zzz.newsapplication.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +55,7 @@ public class NewsListAdapter  extends RecyclerView.Adapter<NewsListAdapter.ViewH
         NewsLink newsLink = mNewsLinkList.get(position);
         holder.newsTitleText.setText(newsLink.getTitle());//绑定recyclerlayout中item的title
         if(mNewsLinkList.get(position).getColorisblack())holder.newsTitleText.setTextColor(mContext.getResources().getColor(R.color.colorItemBlue));
-        else holder.newsTitleText.setTextColor(mContext.getResources().getColor(R.color.colorItemOrg));
+        else holder.newsTitleText.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         holder.newsTitleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

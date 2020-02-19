@@ -1,9 +1,10 @@
 package com.zzz.newsapplication.Utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -20,13 +21,14 @@ public class DataUtil {
 
 
     public static void sendOkHttpRequestSyn(@NonNull String address, @NonNull final NewsInterface.NetworkCallback networkCallback){
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client =  new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).build();
         Request request = new Request.Builder()
                 .url(address)
                 .build();
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                networkCallback.onGetFail(e);
                 Log.i("errorOnNewsContent", e.toString());
             }
 

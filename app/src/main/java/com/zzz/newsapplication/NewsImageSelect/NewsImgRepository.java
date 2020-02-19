@@ -1,6 +1,6 @@
 package com.zzz.newsapplication.NewsImageSelect;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.zzz.newsapplication.Utils.DataUtil;
 import com.zzz.newsapplication.Utils.NewsInterface;
@@ -55,6 +55,7 @@ public class NewsImgRepository {
         Elements page = doc.getElementsByTag("option");
         //当期报纸页数
         int num = page.size()/2;
+//        Log.e("imgnums", String.valueOf(num));
         //拼接报纸页面连接
         String htmllink = mBaseUrl;
         String htmlhead =   htmllink.substring(0,htmllink.lastIndexOf("/")+1);

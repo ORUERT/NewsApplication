@@ -1,6 +1,6 @@
 package com.zzz.newsapplication.NewsImageSelect;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.jelly.mango.MultiplexImage;
 import com.zzz.newsapplication.Utils.NewsInterface;

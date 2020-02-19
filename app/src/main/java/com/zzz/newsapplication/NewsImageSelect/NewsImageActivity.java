@@ -2,24 +2,19 @@ package com.zzz.newsapplication.NewsImageSelect;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.jelly.mango.MultiplexImage;
 import com.zzz.newsapplication.R;
 import com.zzz.newsapplication.Adapter.ImageListAdapter;
 import com.zzz.newsapplication.Utils.ActivityUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class NewsImageActivity extends AppCompatActivity{
 
     private RecyclerView rv;
 
-    private List<MultiplexImage> images =new ArrayList<MultiplexImage>();
     private ImageListAdapter adapter;
 
     private String newsLink;
@@ -58,10 +53,6 @@ public class NewsImageActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        images.clear();
-    }
+
 }
 

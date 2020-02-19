@@ -7,7 +7,7 @@ package com.zzz.newsapplication.Bean;
 public class NewsLink {
     private String title;
     private String newsLink;
-    private boolean colorisblack;
+    private boolean colorisblack = false;
 
     public String getTitle(){
         return title;

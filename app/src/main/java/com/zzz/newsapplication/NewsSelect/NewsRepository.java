@@ -1,11 +1,9 @@
 package com.zzz.newsapplication.NewsSelect;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
-import com.zzz.newsapplication.Utils.DataUtil;
 import com.zzz.newsapplication.Bean.NewsLink;
-import com.zzz.newsapplication.Utils.NewsInterface;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,16 +14,11 @@ import java.util.List;
 
 import static com.zzz.newsapplication.NewsSelect.NewsFragment.NEWS_BASE_URL;
 
-public class NewsRepository {
+public class NewsRepository extends AbsNewsRepository{
 
-    public NewsRepository(){
-
+    public NewsRepository(int source){
+        mNewsource = source;
     }
-
-    public void getNewsList(@NonNull NewsInterface.NetworkCallback networkCallback){
-        DataUtil.sendOkHttpRequestSyn(NEWS_BASE_URL,networkCallback);
-    }
-
     public List<NewsLink> parseNewsHtml(@NonNull String newsHtml){
         Log.e("isNull",newsHtml);
         List<NewsLink> mNewsList = new ArrayList<>();
