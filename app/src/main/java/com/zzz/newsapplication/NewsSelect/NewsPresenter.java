@@ -2,6 +2,8 @@ package com.zzz.newsapplication.NewsSelect;
 
 import androidx.annotation.NonNull;
 
+import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.zzz.newsapplication.Bean.NewsLink;
@@ -24,6 +26,7 @@ public class NewsPresenter {
     private NewsInterface.NetworkCallback networkCallback = new NewsInterface.NetworkCallback(){
         @Override
         public void onGetSuccess(String resHtml) {
+            Log.e("1232321",resHtml);
             final List<NewsLink> newsLinkList = mNewsRepository.parseNewsHtml(resHtml);
             mNewsView.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -39,9 +42,13 @@ public class NewsPresenter {
                 @Override
                 public void run() {
                     mNewsView.showFailuePage();
+                    mNewsView.mSetRefreshing(false);
                 }
             });
+            Looper.prepare();
+            Log.e("error",ex.toString());
             Toast.makeText(mNewsView.getContext(),"Can't get newslist"+ex.getMessage(),Toast.LENGTH_LONG);
+            Looper.loop();
         }
     };
 

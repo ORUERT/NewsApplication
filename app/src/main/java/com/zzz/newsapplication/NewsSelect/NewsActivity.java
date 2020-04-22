@@ -25,6 +25,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.zzz.newsapplication.Utils.SSLUtil.trustAllHosts;
+import static com.zzz.newsapplication.Utils.SSLUtil.trustEveryone;
+
 public class NewsActivity extends AppCompatActivity {
     NewsPresenter mNewsPresenter;
     NewsFactory mNewsFactory;
@@ -42,6 +45,7 @@ public class NewsActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mNewsFragment, R.id.contentFrame);
         }
+        trustAllHosts();
         mNewsFactory = new NewsFactory();
         mNewsPresenter = new NewsPresenter(mNewsFactory.getNewsRepository(1),mNewsFragment);
         initUpdata();

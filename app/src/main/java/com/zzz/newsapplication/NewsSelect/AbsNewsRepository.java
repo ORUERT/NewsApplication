@@ -11,11 +11,11 @@ import java.util.List;
 
 public abstract class AbsNewsRepository {
     int mNewsource = 0;
-    String mBaseUrl = "http://www.hqck.net/";
+    String mBaseUrl = "https://www.hqck.net/";
     public void getNewsList(@NonNull NewsInterface.NetworkCallback networkCallback){
         switch (mNewsource){
             case 1:
-                mBaseUrl ="http://www.hqck.net/";break;
+                mBaseUrl ="https://www.hqck.net/";break;
             case 2:
                 mBaseUrl ="http://www.ht5.com/";break;
             case 3:

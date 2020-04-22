@@ -29,7 +29,7 @@ public class DataUtil {
             @Override
             public void onFailure(Call call, IOException e) {
                 networkCallback.onGetFail(e);
-                Log.i("errorOnNewsContent", e.toString());
+                Log.e("errorOnNewsContent", e.toString());
             }
 
             @Override
@@ -49,7 +49,7 @@ public class DataUtil {
         client.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.i("errorOnNewsContent", e.toString());
+                Log.e("errorOnNewsContent", e.toString());
             }
 
             @Override
