@@ -29,7 +29,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //PhotoView
-    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+//    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     implementation 'com.github.MZCretin:AutoUpdateProject:2.0.4'
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -51,4 +51,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation files('libs/jsoup-1.11.2.jar')
+    compile project(path: ':imagebrowserlibrary')
 }

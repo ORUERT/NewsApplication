@@ -33,11 +33,11 @@ public class NewsImageFragment extends Fragment{
     private View view;
     private RecyclerView mRv;
 
-    private List<MultiplexImage> mImageList = new ArrayList<MultiplexImage>();
+    private ArrayList<String> mImageList = new ArrayList<String>();
     private ImageListAdapter mAdapter;
 
     private NewsImgPresenter mImgPresenter;
-    private ConcurrentHashMap<Integer,MultiplexImage> ordImageList = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer,String> ordImageList = new ConcurrentHashMap<>();
 
     private int mPosition = 0;
 
@@ -68,7 +68,7 @@ public class NewsImageFragment extends Fragment{
         return new NewsImageFragment();
     }
 
-    public void showImageList (List < MultiplexImage > imageList) {
+    public void showImageList (ArrayList < String > imageList) {
         mAdapter.replaceData(imageList);
     }
 
@@ -93,9 +93,9 @@ public class NewsImageFragment extends Fragment{
 
             Log.i("warmming","abc"+imgsrc);
 
-            ordImageList.put(position,new MultiplexImage(imgsrc,imgsrc,MultiplexImage.ImageType.NORMAL));
+            ordImageList.put(position,imgsrc);
 
-            final List<MultiplexImage> imageList = new ArrayList<>();
+            final ArrayList<String> imageList = new ArrayList<>();
             imageList.addAll(ordImageList.values());
             mImageList = imageList;
             getActivity().runOnUiThread(new Runnable() {
@@ -115,33 +115,33 @@ public class NewsImageFragment extends Fragment{
     public void initData() {
         mImgPresenter.loadImages(networkCallback);
     }
-    ClickListener.OnImageItemClickListener onRecyclerItemClickListener = new ClickListener.OnImageItemClickListener() {
-        @Override
-        public void click(int position) {
-            //test Mange static
-//            Log.e(position,mImageList)
-            Mango.setImages(mImageList);
-
-            Mango.setPosition(position);
-            Mango.setImageSelectListener(new ImageSelectListener() {
-                @Override
-                public void select(int index) {
-                    Log.d("Mango", "select: " + index);
-                }
-            });
-            try {
-                Mango.open(getContext());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
+//    ClickListener.OnImageItemClickListener onRecyclerItemClickListener = new ClickListener.OnImageItemClickListener() {
+//        @Override
+//        public void click(int position) {
+//            //test Mange static
+////            Log.e(position,mImageList)
+//            Mango.setImages(mImageList);
+//
+//            Mango.setPosition(position);
+//            Mango.setImageSelectListener(new ImageSelectListener() {
+//                @Override
+//                public void select(int index) {
+//                    Log.d("Mango", "select: " + index);
+//                }
+//            });
+//            try {
+//                Mango.open(getContext());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    };
     public void initView() {
         if (mAdapter == null) {
             mRv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             mRv.setItemAnimator(new DefaultItemAnimator());
             mAdapter = new ImageListAdapter(getContext(), mImageList);
-            mAdapter.setItemClickListener(onRecyclerItemClickListener);
+//            mAdapter.setItemClickListener(onRecyclerItemClickListener);
             mRv.setAdapter(mAdapter);
         }
     }

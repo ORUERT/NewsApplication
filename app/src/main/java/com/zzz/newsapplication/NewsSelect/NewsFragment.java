@@ -1,6 +1,7 @@
 package com.zzz.newsapplication.NewsSelect;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -108,7 +109,9 @@ public class NewsFragment extends Fragment implements OnRefreshListener {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i("UpdateCheckError", e.toString());
-                showFailuePage();
+                Looper.prepare();
+                Toast.makeText(getContext(),"查找更新信息失败，可能是网络问题",Toast.LENGTH_LONG).show();
+                Looper.loop();
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -116,8 +119,17 @@ public class NewsFragment extends Fragment implements OnRefreshListener {
                 String responseData = new String(responseByte, StandardCharsets.UTF_8);
                 Document doc = Jsoup.parse(responseData);
                 Element readme = doc.getElementById("readme");
-                updateJson = readme.text();
-                AppUpdateUtils.getInstance().checkUpdate(updateJson);
+                //readme为空的话，则是不需要更新
+//                Log.e("loglog",readme.toString());
+                if(readme != null){
+                    updateJson = readme.text();
+                    AppUpdateUtils.getInstance().checkUpdate(updateJson);
+                }else {
+                    Looper.prepare();
+                    Toast.makeText(getContext(),"已经是最新版本了",Toast.LENGTH_SHORT).show();
+                    Looper.loop();// 进入loop中的循环，查看消息队列
+                }
+
             }
         });
     }

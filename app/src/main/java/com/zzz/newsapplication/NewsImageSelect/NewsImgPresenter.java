@@ -27,7 +27,7 @@ public class NewsImgPresenter {
         mNewsImgRepository.getImageList(networkCallback);
     }
 
-    public void replaceImage(List<MultiplexImage> imageList){
+    public void replaceImage(ArrayList<String> imageList){
         if(imageList.isEmpty()){
             //
         }else{
