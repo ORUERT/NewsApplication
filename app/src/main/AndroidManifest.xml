@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.newstvapplication"
+    package="com.example.newsapplication"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-sdk
         tools:overrideLibrary="android.support.media.tv" />
@@ -28,10 +28,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.example.newstvapplication.setting.SettingsExampleActivity"
+            android:name="com.example.newsapplication.setting.SettingsExampleActivity"
             android:exported="true"
             android:theme="@style/Theme.Example.LeanbackPreferences"/>
-        <activity android:name="com.example.newstvapplication.home.HomePageActivity"
+        <activity android:name="com.example.newsapplication.home.HomePageActivity"
             android:theme="@style/Theme.Example.LeanbackBrowse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
