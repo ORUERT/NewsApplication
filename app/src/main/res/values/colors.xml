@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#121212</color>
-    <color name="colorPrimaryDark">#121212</color>
-    <color name="colorPrimaryPuple">#3700B3</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorItemBlue">#03DAC6</color>
-    <color name="colorItemOrg">#FF6E40</color>
-    <color name="colorBackGray">#E4E4E4</color>
-    <color name="colorBackBlack">#121212</color>
-    <color name="colorFrontBlack">#212121</color>
-    <color name="colorNomalText">#9E9E9E</color>
-    <color name="colorBackTM">#00000000</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="settings_background">#393e46</color>
+
+    <color name="text_white">#eeeeee</color>
+    <color name="card_examples_background">#222831</color>
+    <color name="fastlane_background">#00adb5</color>
+    <color name="infoareacolor">#393e46</color>
+<!--    <color name="search_color">#FFEB3B</color>-->
+<!--    <color name="search_bright_color">#FFEB3B</color>-->
+<!--    <color name="search_icon_color">#222222</color>-->
 </resources>

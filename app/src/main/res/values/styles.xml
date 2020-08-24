@@ -1,49 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2015 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License
+  ~ is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+  ~ or implied. See the License for the specific language governing permissions and limitations under
+  ~ the License.
+  ~
+  -->
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-<!--        <item name="menustyle"-->
-<!--        <item name="android:actionMenuTextColor">@color/colorBackGray</item>-->
-        <item name="android:windowBackground">@color/colorBackBlack</item>
-        <item name="android:textColorPrimary">@color/colorNomalText</item>
-
+    <style name="AppTheme" parent="@style/Theme.Leanback">
     </style>
 
-    <style name="ToolbarStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="theme">@style/ToolbarTheme</item>
-    </style>
-
-    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <!-- 设置 toolbar 溢出菜单的文字的颜色 -->
-        <item name="android:textColor">@color/colorNomalText</item>
-        <!-- 设置toolbar 溢出菜单的字体大小-->
-<!--        <item name="android:textSize">25sp</item>-->
-        <!-- 设置 显示在toobar上菜单文字的颜色 -->
-        <item name="actionMenuTextColor">@color/colorNomalText</item>
-        <item name="popupMenuBackground">@color/colorFrontBlack</item>
-        <item name="actionBarItemBackground">@color/colorFrontBlack</item>
-    </style>
-
-
-       <style name="DialogActivityTheme" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <!-- 边框 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 是否浮现在activity之上 -->
+    <style name="Theme.Example.LeanbackPreferences" parent="Theme.Leanback">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Leanback</item>
         <item name="android:windowIsTranslucent">true</item>
-        <!-- 半透明 -->
-        <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:background">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <!-- 模糊 -->
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <!-- 重点，去掉标题 -->
-        <item name="windowNoTitle">true</item>
+        <item name="android:colorPrimary">@color/settings_background</item>
+<!--        <item name-->
     </style>
+
+    <style name="Theme.Example.LeanbackBrowse" parent="Theme.Leanback.Browse">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:windowBackground">@color/card_examples_background</item>
+<!--        <item name="color"-->
+        <item name="defaultBrandColor">@color/fastlane_background</item>
+<!--        <item name="defaultSearchIconColor">@color/search_icon_color</item>-->
+    </style>
+
+    <style name="MovieCardImageStyle" parent="Widget.Leanback.ImageCardView.ImageStyle">
+        <item name="android:layout_width">@dimen/movie_image_card_width</item>
+        <item name="android:layout_height">@dimen/movie_image_card_height</item>
+    </style>
+
+
+    <style name="MovieCardTitleOnlyStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="lbImageCardViewType">Title</item>
+        <item name="cardBackground">@null</item>
+        <item name="infoAreaBackground">@color/infoareacolor</item>
+    </style>
+
+    <!-- Theme corresponding to the MovieCardSimpleStyle -->
+    <style name="MovieCardSimpleTheme" parent="Theme.Leanback">
+        <item name="imageCardViewStyle">@style/MovieCardTitleOnlyStyle</item>
+        <item name="imageCardViewImageStyle">@style/MovieCardImageStyle</item>
+    </style>
+    <style name="DefaultCardTheme" parent="Theme.Leanback">
+        <item name="imageCardViewStyle">@style/DefaultCardStyle</item>
+        <item name="imageCardViewImageStyle">@style/DefaultCardImageStyle</item>+
+    </style>
+    <style name="GameCardStyle" parent="DefaultCardStyle">
+        <item name="lbImageCardViewType">Title|Content|IconOnRight</item>
+    </style>
+    <style name="DefaultCardStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@null</item>
+    </style>
+    <style name="DefaultCardImageStyle" parent="Widget.Leanback.ImageCardView.ImageStyle">
+        <item name="android:layout_width">@dimen/default_image_card_width</item>
+        <item name="android:layout_height">@dimen/default_image_card_height</item>
+    </style>
+
+    <!--The styles for popup menu-->
+    <style name="MyPopupMenu" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:popupBackground">#0F213F</item>
+        <item name="android:disabledAlpha">0.5</item>
+    </style>
+
 </resources>

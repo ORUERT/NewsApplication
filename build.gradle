@@ -1,16 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
     repositories {
         google()
         jcenter()
-
+        
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'com.novoda:bintray-release:0.5.0'
-//        junit.version
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,10 +18,24 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+ext {
+    buildToolsVersion = "29.0.2"
+    compileSdkVersion = 29
+    minSdkVersion = 22
+    targetSdkVersion = 29
+    buildToolsVersion = '24.0.2'
+    supportLibVersion = "1.0.0"
+    daggerVersion = "2.15"
+    materialVersion="1.0.0"
+    testVersion = "1.2.0"
+    espressoVersion = "3.1.0"
+    archLifecycleVersion = "2.0.0"
+    archRoomVersion = "2.0.0-rc01"
 }

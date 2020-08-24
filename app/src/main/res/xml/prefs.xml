@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:summary="This is a dummy activity only to show case how to build a settings in an application. Changing configurations in this example doesn't affect anything."
+    android:title="ーロメ">
+    <PreferenceScreen
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:key="jiuwei_key"
+        android:title="九尾网">
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:key="haitian_key"
+        android:title="海天网">
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:key="jiaodu_key"
+        android:title="角度区">
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:icon="@drawable/ic_refresh_black_24dp"
+        android:key="refresh_key"
+        android:title="刷新">
+    </PreferenceScreen>
+    <!--    <PreferenceScreen-->
+    <!--        android:icon="@drawable/ic_dashboard_white_24dp"-->
+    <!--        android:key="prefs_apps_screen_key"-->
+    <!--        android:title="Apps">-->
+    <!--    </PreferenceScreen>-->
+</PreferenceScreen>
