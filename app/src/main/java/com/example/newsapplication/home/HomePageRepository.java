@@ -1,5 +1,7 @@
 package com.example.newsapplication.home;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.newsapplication.util.GetRequest_Interface;
@@ -38,9 +40,9 @@ public class HomePageRepository extends AbsNewsRepository {
                 .map(s -> {
                     switch(getmSource()){
                         case 1:
-                            return parseJwNewsHtml(s);
-                        case 2:
                             return parseHtNewsHtml(s);
+                        case 2:
+                            return parseJwNewsHtml(s);
                         default:
                             return parseJdNewsHtml(s);
                     }
@@ -88,6 +90,7 @@ public class HomePageRepository extends AbsNewsRepository {
                 .map(str -> parseNewsPageHtml(str,newsUrl))
                 .concatMapIterable(it->it)
                 .map(str->parseImagesLink((request.getHtmlByNetSyn(str).execute().body())));
+//                .doOnNext(it->Log.i("sky",it.toString()));
 //                .doOnNext(it->Log.e("c",it+" "+newsUrl));
 
     }

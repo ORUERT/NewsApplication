@@ -89,7 +89,7 @@ public class SettingsExampleFragment extends LeanbackSettingsFragment {
          */
         @Override
         public boolean onPreferenceTreeClick(Preference preference) {
-            final String[] keys = {"jiuwei_key","haitian_key","jiaodu_key","refresh_key"};
+            final String[] keys = {"haitian_key","jiuwei_key","jiaodu_key","refresh_key"};
             if(preference.getKey().equals(keys[0])&&getmSource()!=1){
                 setSource(1);
             }else if(preference.getKey().equals(keys[1])&&getmSource()!=2){

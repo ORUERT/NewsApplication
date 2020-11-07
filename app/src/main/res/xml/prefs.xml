@@ -5,13 +5,13 @@
     android:title="ーロメ">
     <PreferenceScreen
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:key="jiuwei_key"
-        android:title="九尾网">
+        android:key="haitian_key"
+        android:title="海天网">
     </PreferenceScreen>
     <PreferenceScreen
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:key="haitian_key"
-        android:title="海天网">
+        android:key="jiuwei_key"
+        android:title="九尾网">
 
     </PreferenceScreen>
 
