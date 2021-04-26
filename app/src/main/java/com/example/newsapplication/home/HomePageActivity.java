@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.newsapplication.util.ActivityUtils;
+import com.example.newsapplication.util.CrashManager;
 import com.example.newsapplication.util.HomeListen;
 import com.example.newsapplication.R;
 import com.example.newsapplication.setting.SettingsExampleActivity;
@@ -28,6 +29,10 @@ public class HomePageActivity extends Activity {
                     getFragmentManager(), mNewsFragment, R.id.cardsFragment);
         }
         mNewsPresenter = new HomePagePresenter(new HomePageRepository(),mNewsFragment);
+        //注冊崩溃处理器
+        CrashManager crashHandler = new CrashManager(this);
+        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
+//        System.out.println(1/0);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.example.newsapplication.home;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.newsapplication.util.GetRequest_Interface;
@@ -35,12 +37,13 @@ public class HomePageRepository extends AbsNewsRepository {
         //获取homepage html
         return request.getHtmlByNetAsy("")
                 .subscribeOn(Schedulers.io())               // 在IO线程进行网络请求
+                .doOnNext(s->Log.i("helloworld",s))
                 .map(s -> {
                     switch(getmSource()){
                         case 1:
-                            return parseJwNewsHtml(s);
-                        case 2:
                             return parseHtNewsHtml(s);
+                        case 2:
+                            return parseJwNewsHtml(s);
                         default:
                             return parseJdNewsHtml(s);
                     }
@@ -79,6 +82,7 @@ public class HomePageRepository extends AbsNewsRepository {
      * @return
      */
     public Observable<String> getImageUrlList(String newsUrl){
+//        Log.i("imageurl",newsUrl);
         Retrofit retrofit = getRetrofitInstance(getmBaseUrl(),htmlConverter());
         GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
         //get homepage html
@@ -88,6 +92,7 @@ public class HomePageRepository extends AbsNewsRepository {
                 .map(str -> parseNewsPageHtml(str,newsUrl))
                 .concatMapIterable(it->it)
                 .map(str->parseImagesLink((request.getHtmlByNetSyn(str).execute().body())));
+//                .doOnNext(it->Log.i("sky",it.toString()));
 //                .doOnNext(it->Log.e("c",it+" "+newsUrl));
 
     }
@@ -132,11 +137,16 @@ public class HomePageRepository extends AbsNewsRepository {
      * @return
      */
     public static String parseImagesLink(String resHtml){
-        Document doc = Jsoup.parse(resHtml);
-        //获取报纸图片信息
-        Elements image_doc = doc.getElementsByTag("img");
-        String imgsrc = image_doc.get(0).attr("src");
-        return imgsrc;
+        if(resHtml!=null){
+            Document doc = Jsoup.parse(resHtml);
+            //获取报纸图片信息
+            Elements image_doc = doc.getElementsByTag("img");
+            String imgsrc = image_doc.get(0).attr("src");
+            return imgsrc;
+        }
+        else {
+            return "";
+        }
     }
 
     /**
@@ -146,6 +156,7 @@ public class HomePageRepository extends AbsNewsRepository {
      * @return
      */
     public static List<String> parseNewsPageHtml(@NonNull String resHtml, @NonNull String newsUrl){
+
         List<String> newsDetailList = new ArrayList<>();
 
         Document doc = Jsoup.parse(resHtml);
@@ -155,11 +166,17 @@ public class HomePageRepository extends AbsNewsRepository {
         //conbine baseurl and tail
         String htmllink = newsUrl;
         String htmlhead =   htmllink.substring(0,htmllink.lastIndexOf("/")+1);
-
+        if(resHtml.contains("页面正在发布，请稍后，精彩即将呈现")){
+//            return new ArrayList<>();
+            newsDetailList.add("");
+            return newsDetailList;
+        }
         for(int j = 1 ; j <= num ; j ++){
             String link = htmlhead+page.get(j-1).attr("value");
             newsDetailList.add(link);
+//            Log.i("link",link);
         }
+
         return newsDetailList;
     }
 

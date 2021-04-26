@@ -29,7 +29,7 @@ import java.util.List;
  * Created by Jelly on 2016/9/3.
  */
 public class ImageBrowseActivity extends Activity implements ViewPager.OnPageChangeListener,View.OnClickListener,ImageBrowseView {
-    private static float DEFAULT_MAX_SCALE = 3.4f;
+    private static float DEFAULT_MAX_SCALE = 4.5f;
 //    private static float DEFAULT_MAX_SCALE = 3.0f;
     private static float DEFAULT_MID_SCALE = 1.75f;
     private static float DEFAULT_MIN_SCALE = 1.0f;
@@ -103,8 +103,8 @@ public class ImageBrowseActivity extends Activity implements ViewPager.OnPageCha
                             mHeightBound = 400;
                         } else if (scale >= getMediumScale() && scale < getMaximumScale()) {
                             scale = getMaximumScale();
-                            mHeightBound = (int) ((vp.getHeight()+20)*1.26);
-                            mWidthBound = 250;
+                            mHeightBound = (int) ((vp.getHeight()+25)*1.75);
+                            mWidthBound = 760;
                         } else {
                             vp.setTranslationX(0);
                             vp.setTranslationY(0);

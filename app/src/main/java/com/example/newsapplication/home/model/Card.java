@@ -14,6 +14,8 @@
 
 package com.example.newsapplication.home.model;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -34,8 +36,13 @@ public class Card {
         mTitle = title;
         mImageUrl = url;
         mType = type;
-        mLocalImageResource = local;
+
         mId = id;
+        if(url == null){
+            mLocalImageResource = "card_image_movie_01.jpg";
+        }else {
+            mLocalImageResource = "";
+        }
     }
     public String getTitle() {
         return mTitle;
@@ -45,6 +52,21 @@ public class Card {
         return mId;
     }
 
+    public String getLocalImageResource() {
+        return mLocalImageResource;
+    }
+
+    public void setLocalImageResource(String localImageResource) {
+        mLocalImageResource = localImageResource;
+    }
+    public int getLocalImageResourceId(Context context) {
+        return context.getResources().getIdentifier(getLocalImageResourceName(), "drawable",
+                context.getPackageName());
+    }
+
+    public String getLocalImageResourceName() {
+        return mLocalImageResource;
+    }
     public String getImageUrl() {
         return mImageUrl;
     }
