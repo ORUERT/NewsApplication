@@ -63,7 +63,7 @@ public class HomePagePresenter {
                 .getImageUrlList(newsLinkModel.getNewsLink())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
-                .map(it -> new Card(MessageFormat.format("第{0}页", count[0]++), it,MOVIE,"", count[0] -2))
+                .map(it -> new Card(MessageFormat.format("第{0}页", count[0]++), it,MOVIE,"card_image_movie_01", count[0] -2))
                 .collectInto(new ArrayList<>(), List::add)
                 .toObservable()
                 .doOnNext(it->it.add(newsLinkModel.getTitle()));

@@ -17,7 +17,7 @@ public abstract class AbsNewsRepository {
                 mBaseUrl ="http://www.ht5.com/";
                 mSiteName = "海天网";break;
             case 2:
-                mBaseUrl ="http://www.hqck.net/";
+                mBaseUrl ="https://www.hqck.net/";
                 mSiteName = "九尾网";break;
             case 3:
                 mBaseUrl ="http://www.jdqu.com/";
